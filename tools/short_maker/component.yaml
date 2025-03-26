@@ -6,9 +6,19 @@ description: A tool to generate short videos from prompts.
 license: Apache-2.0
 aea_version: '>=1.0.0, <2.0.0'
 fingerprint:
-  __init__.py: bafybeidey4syohls5hxmso6qsp5p4uhtzle5txv2mlbym6ktjzknich6oa
-  short_maker.py: bafybeibqwl52cnz64cysjd2jnjijuakdvyrffapxq65cdzx6g65gu42deq
+  __init__.py: bafybeia5ph3iffffsjul5djogzdqww6znx5iqjgu5j6sphyipvi3mizh2a
+  short_maker.py: bafybeifqw5jtpyg7cjnyqabod6e22t3yhfoqvnhs7clttovby2zl6qmse4
 fingerprint_ignore_patterns: []
 entry_point: short_maker.py
 callable: run
-dependencies: {}
+dependencies:
+  openai:
+    version: ==1.30.2
+  replicate:
+    version: ==0.15.7
+  moviepy:
+    version: ==1.0.3
+  anthropic:
+    version: ==0.21.3
+  google-api-python-client:
+    version: ==2.95.0
