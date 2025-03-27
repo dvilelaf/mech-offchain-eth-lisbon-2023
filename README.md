@@ -37,7 +37,7 @@ The project consists of three components:
 
 - Off-chain AI workers, each of which controls a Mech. Each AI worker is implemented as an autonomous service on the Autonolas stack.
 - An on-chain protocol, which is used to generate a registry of AI Mechs, represented as NFTs on-chain.
-- [Mech Hub](https://aimechs.autonolas.network/), a frontend which allows to interact with the protocol:
+- [Mech Hub](https://mech.olas.network/), a frontend which allows to interact with the protocol:
   - Gives an overview of the AI workers in the registry.
   - Allows Mech owners to create new workers.
   - Allows users to request work from an existing worker.
@@ -62,7 +62,7 @@ Follow these instructions to have your local environment prepared to run the dem
     poetry install && poetry shell
     ```
 
-2. Fetch the software packages using the [Open Autonomy](https://docs.autonolas.network/open-autonomy/) CLI 
+2. Fetch the software packages using the [Open Autonomy](https://docs.autonolas.network/open-autonomy/) CLI
 
     ```bash
     autonomy packages sync --update-packages
@@ -87,8 +87,8 @@ source .1env
 ```
 
 > **Warning**<br />
-> **The demo service is configured to match a specific on-chain agent (ID 3 on [Mech Hub](https://aimechs.autonolas.network/registry). Since you will not have access to its private key, your local instance will not be able to transact.
-> However, it will be able to receive Requests for AI tasks [sent from Mech Hub](https://aimechs.autonolas.network/mech). These Requests will be executed by your local instance, but you will notice that a failure will occur when it tries to submit the transaction on-chain (Deliver type).**
+> **The demo service is configured to match a specific on-chain agent (ID 3 on [Mech Hub](https://mech.olas.network/registry). Since you will not have access to its private key, your local instance will not be able to transact.
+> However, it will be able to receive Requests for AI tasks [sent from Mech Hub](https://mech.olas.network/). These Requests will be executed by your local instance, but you will notice that a failure will occur when it tries to submit the transaction on-chain (Deliver type).**
 
 Now, you have two options to run the worker: as a standalone agent or as a service.
 
@@ -96,7 +96,7 @@ Now, you have two options to run the worker: as a standalone agent or as a servi
 
 1. Ensure you have a file with a private key (`ethereum_private_key.txt`). You can generate a new private key file using the Open Autonomy CLI:
    ```bash
-   autonomy generate-key ethereum 
+   autonomy generate-key ethereum
    ```
 
 2. From one terminal, run the agent:
@@ -130,7 +130,7 @@ Now, you have two options to run the worker: as a standalone agent or as a servi
 
 You can create and mint your own AI Mech that handles requests for tasks that you can define.
 
-1. **Create a new tool.** Tools are the components that execute the Requests for AI tasks submitted on [Mech Hub](https://aimechs.autonolas.network/mech). Tools must be located in the folder `./tools` as a single Python file. Such file must contain a `run` function that accepts `kwargs` and must **always** return a string (`str`). That is, the `run` function must not raise any exception. If exceptions occur inside the function, they must be processed, and the return value must be set accordingly, for example, returning an error code.
+1. **Create a new tool.** Tools are the components that execute the Requests for AI tasks submitted on [Mech Hub](https://mech.olas.network/). Tools must be located in the folder `./tools` as a single Python file. Such file must contain a `run` function that accepts `kwargs` and must **always** return a string (`str`). That is, the `run` function must not raise any exception. If exceptions occur inside the function, they must be processed, and the return value must be set accordingly, for example, returning an error code.
 
     ```python
     def run(**kwargs) -> str:
@@ -173,10 +173,10 @@ You can create and mint your own AI Mech that handles requests for tasks that yo
     API_KEYS=[[openai, dummy_api_key],[<your_api_key_id>, <your_api_key>]]
     ```
 
-4. **Mint your agent service** in the [Autonolas Protocol](https://registry.olas.network/services/mint), and create a Mech for it in [Mech Hub](https://aimechs.autonolas.network/factory). This will allow you to set the `SAFE_CONTRACT_ADDRESS` and `AGENT_MECH_CONTRACT_ADDRESS` in the `.1env` file.
+4. **Mint your agent service** in the [Autonolas Protocol](https://registry.olas.network/), and create a Mech for it in [Mech Hub](https://mech.olas.network/factory). This will allow you to set the `SAFE_CONTRACT_ADDRESS` and `AGENT_MECH_CONTRACT_ADDRESS` in the `.1env` file.
 
     > **Warning**
-    > AI Mechs run on the [Gnosis chain](https://www.gnosis.io/). You must ensure that your wallet is connected to the [Gnosis chain](https://www.gnosis.io/) before using the [Autonolas Protocol](https://protocol.autonolas.network/services/mint) and [Mech Hub](https://aimechs.autonolas.network/factory).
+    > AI Mechs run on the [Gnosis chain](https://www.gnosis.io/). You must ensure that your wallet is connected to the [Gnosis chain](https://www.gnosis.io/) before using the [Autonolas Protocol](https://registry.olas.network/ethereum/services/mint) and [Mech Hub](https://mech.olas.network/factory).
 
     Here is an example of the agent NFT metadata once you create the Mech:
     ```json
@@ -192,7 +192,7 @@ You can create and mint your own AI Mech that handles requests for tasks that yo
 
 5. **Run your service.** You can take a look at the `run_service.sh` script and execute your service locally as [above](#option-2-run-the-mech-as-an-agent-service).
 
-    Once your service works locally, you have the option to run it on a hosted service like [Propel](https://propel.valory.xyz/).
+    Once your service works locally, you have the option to run it on a hosted service like Propel.
 
 ## Included tools
 
