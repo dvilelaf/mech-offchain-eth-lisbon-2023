@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # ------------------------------------------------------------------------------
 #
-#   Copyright 2023-2024 Valory AG
+#   Copyright 2025 Valory AG
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -22,10 +22,16 @@ import json
 import logging
 import math
 import os
-from typing import Dict, Any, Tuple, Optional, List
+from typing import Callable, Dict, Any, Tuple, Optional, List
+import functools
+
+import openai
+import anthropic
+import googleapiclient
 
 from moviepy.audio.fx.audio_fadeout import audio_fadeout
-import openai
+from openai import OpenAI
+
 import requests
 from aea_cli_ipfs.ipfs_utils import IPFSTool
 from moviepy.audio.AudioClip import concatenate_audioclips, AudioClip
@@ -34,10 +40,64 @@ from moviepy.video.VideoClip import ColorClip, ImageClip
 from moviepy.video.compositing.concatenate import concatenate_videoclips
 from replicate import Client
 
+
+MechResponse = Tuple[str, Optional[str], Optional[Dict[str, Any]], Any, Any]
+
+
 ALLOWED_TOOLS = [
     "short-maker",
 ]
 TOOL_TO_ENGINE = {tool: "gpt-3.5-turbo" for tool in ALLOWED_TOOLS}
+
+
+def with_key_rotation(func: Callable):
+    @functools.wraps(func)
+    def wrapper(*args, **kwargs) -> MechResponse:
+        # this is expected to be a KeyChain object,
+        # although it is not explicitly typed as such
+        api_keys = kwargs["api_keys"]
+        retries_left: Dict[str, int] = api_keys.max_retries()
+
+        def execute() -> MechResponse:
+            """Retry the function with a new key."""
+            try:
+                result = func(*args, **kwargs)
+                return result + (api_keys,)
+            except anthropic.RateLimitError as e:
+                # try with a new key again
+                service = "anthropic"
+                if retries_left[service] <= 0:
+                    raise e
+                retries_left[service] -= 1
+                api_keys.rotate(service)
+                return execute()
+            except openai.RateLimitError as e:
+                # try with a new key again
+                if retries_left["openai"] <= 0 and retries_left["openrouter"] <= 0:
+                    raise e
+                retries_left["openai"] -= 1
+                retries_left["openrouter"] -= 1
+                api_keys.rotate("openai")
+                api_keys.rotate("openrouter")
+                return execute()
+            except googleapiclient.errors.HttpError as e:
+                # try with a new key again
+                rate_limit_exceeded_code = 429
+                if e.status_code != rate_limit_exceeded_code:
+                    raise e
+                service = "google_api_key"
+                if retries_left[service] <= 0:
+                    raise e
+                retries_left[service] -= 1
+                api_keys.rotate(service)
+                return execute()
+            except Exception as e:
+                return str(e), "", None, None, api_keys
+
+        mech_response = execute()
+        return mech_response
+
+    return wrapper
 
 
 def download_file(url: str, local_filename: str):
@@ -74,7 +134,7 @@ def get_audio_prompts(user_input: str, engine: str = "gpt-3.5-turbo") -> Dict[st
     }
     try:
         # Send the message to the chat completions endpoint
-        response = openai.ChatCompletion.create(model=engine, messages=[message])
+        response = client.chat.completions.create(model=engine, messages=[message])
 
         # Parse the JSON content from the response
         content = response.choices[0].message.content
@@ -119,7 +179,7 @@ def get_shot_prompts(
 
     try:
         # Send the message to the chat completions endpoint
-        response = openai.ChatCompletion.create(model=engine, messages=[message])
+        response = client.chat.completions.create(model=engine, messages=[message])
 
         # Parse the JSON content from the response
         content = response.choices[0].message.content
@@ -360,14 +420,19 @@ def compose_final_video(
     return filename
 
 
-def run(**kwargs) -> Tuple[str, Optional[str], Optional[Dict[str, Any]]]:
+@with_key_rotation
+def run(**kwargs) -> Tuple[str, Optional[str], Optional[Dict[str, Any]], Any]:
     """Run the task"""
     user_input = kwargs["prompt"]
     openai_key = kwargs["api_keys"]["openai"]
-    openai.api_key = openai_key
+    counter_callback = kwargs.get("counter_callback", None)
+
+    # Initialize OpenAI client with the provided key
+    global client
+    client = OpenAI(api_key=openai_key)
 
     replicate_key = kwargs["api_keys"]["replicate"]
-    client = Client(replicate_key)
+    client_replicate = Client(replicate_key)
 
     file_prefix = user_input[:5]  # Extract first 5 characters
 
@@ -377,7 +442,7 @@ def run(**kwargs) -> Tuple[str, Optional[str], Optional[Dict[str, Any]]]:
     # Step 3: Process voiceover
     voiceover_script = audio_prompts["voiceover_script"]
     voice_choice = audio_prompts["voice"]
-    voiceover = process_voiceover(client, voiceover_script, voice_choice)
+    voiceover = process_voiceover(client_replicate, voiceover_script, voice_choice)
 
     # Download voiceover and get duration
     voiceover_filename = f"{file_prefix}_voiceover.mp3"
@@ -393,11 +458,13 @@ def run(**kwargs) -> Tuple[str, Optional[str], Optional[Dict[str, Any]]]:
     first_shot_path = download_file(image, "first_shot")
 
     # Steps 7 & 8: Process video shots
-    video_urls = [process_first_shots(client, url) for url in images.values()]
+    video_urls = [process_first_shots(client_replicate, url) for url in images.values()]
 
     # Step 9: Process soundtrack
     soundtrack_prompt = audio_prompts["soundtrack_prompt"]
-    soundtrack = process_soundtrack(client, soundtrack_prompt, voiceover_length)
+    soundtrack = process_soundtrack(
+        client_replicate, soundtrack_prompt, voiceover_length
+    )
 
     # Download all video shots and soundtrack
     video_files = [
@@ -425,4 +492,6 @@ def run(**kwargs) -> Tuple[str, Optional[str], Optional[Dict[str, Any]]]:
         "image": image_hash_,
         "prompt": user_input,
     }
-    return json.dumps(body), user_input, None
+
+    # response text, original prompt, metadata, callback
+    return json.dumps(body), user_input, None, counter_callback
