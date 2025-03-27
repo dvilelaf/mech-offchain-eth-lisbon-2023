@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # ------------------------------------------------------------------------------
 #
-#   Copyright 2023-2024 Valory AG
+#   Copyright 2023-2025 Valory AG
 #
 #   Licensed under the Apache License, Version 2.0 (the "License");
 #   you may not use this file except in compliance with the License.
@@ -145,7 +145,7 @@ def run(**kwargs) -> Tuple[str, Optional[str], Optional[Dict[str, Any]], Any]:
     cfg_scale = kwargs.get("cfg_scale", DEFAULT_STABILITYAI_SETTINGS["cfg_scale"])
     weight = kwargs.get("weight", DEFAULT_STABILITYAI_SETTINGS["weight"])
     clip_guidance_preset = kwargs.get("clip_guidance_preset", DEFAULT_STABILITYAI_SETTINGS["clip_guidance_preset"])
-    
+
     # Handle different engine types
     if engine == "stable-diffusion-xl-1024-v1-0":
         height = kwargs.get("height", ENGINE_SIZE_CHART[engine][0]["height"])  # Access first size as default

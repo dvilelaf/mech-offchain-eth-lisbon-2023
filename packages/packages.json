@@ -1,7 +1,7 @@
 {
     "dev": {
         "custom/valory/short_maker/0.1.0": "bafybeifqkscrnnq2hctbrilqmsyvs6ryrj4u5xt4spd7y5n3iwutg6rx6y",
-        "custom/valory/stability_ai_request/0.1.0": "bafybeifzlmtyvvo2x43sx6y2f53gqyakoqrxk5yclembw5xc3gihf2vrxm",
+        "custom/valory/stability_ai_request/0.1.0": "bafybeieexcgm6jun3546sinbiqd4uflpjiisfd45z6ofrfyjlffh6knlk4",
         "agent/valory/mech/0.1.0": "bafybeifk7zx6fhtmf7gafdvtqkh4iyw5j4jrfsb3oqzvkqnucgxjiawgwq",
         "service/valory/mech_neon/0.1.0": "bafybeihqcfc5r6hmn5pjxx2mzpj5fn2o66dw3ib54pgawtudgoyisj255u",
         "service/valory/mech_zkevm/0.1.0": "bafybeiasc4mhk4emtn5ucuhru6igui54zrdmrco7pdilcb5alpeiw6ek6u",
