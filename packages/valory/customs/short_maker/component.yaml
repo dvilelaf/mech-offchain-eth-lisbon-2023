@@ -22,3 +22,7 @@ dependencies:
     version: ==0.21.3
   google-api-python-client:
     version: ==2.95.0
+  requests:
+    version: ==2.28.1
+  aea_cli_ipfs:
+    version: ==1.63.0
