@@ -104,6 +104,8 @@ dependencies:
     version: ==3.7.2
   tiktoken:
     version: ==0.5.1
+  httpx:
+    version: ==0.25.2
 default_connection: null
 ---
 public_id: valory/websocket_client:0.1.0:bafybeiexove4oqyhoae5xmk2hilskthosov5imdp65olpgj3cfrepbouyy

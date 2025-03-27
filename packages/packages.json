@@ -2,10 +2,10 @@
     "dev": {
         "custom/valory/short_maker/0.1.0": "bafybeiga7tjejfil7uxzruuecebrucq3sy2phtha236eozuekyva6ilkxq",
         "custom/valory/stability_ai_request/0.1.0": "bafybeigjgngrt44ljduvi2rmtjajmfmvzo4jzahjqi66jvkawxg7scomnq",
-        "agent/valory/mech/0.1.0": "bafybeifw4s6uzuvtxydmdmhpyv3fbmwelu6jbppe5ecgibkm7x4tge2coa",
-        "service/valory/mech_neon/0.1.0": "bafybeiaw4kspcri5zx2u3lluzhdvsozcynlkoj44k5zah3njatthcl3gjy",
-        "service/valory/mech_zkevm/0.1.0": "bafybeicg67dhuxx4ca3vhaej2rlamzh42e73wpo34bjirs7yx375u33qoy",
-        "service/valory/mech_gnosis/0.1.0": "bafybeig5cdvotdmu5e6at7njwfgj47k77snxyovbfj2rz2lusy7tzaus3i"
+        "agent/valory/mech/0.1.0": "bafybeidqmttucz4nzs4uwelkfgfeee3odpqsvmkhyyimsdtred7eoly2gm",
+        "service/valory/mech_neon/0.1.0": "bafybeig6jbguyoamqptedsqxzge2qvania6cw6wglfy7kgwaj6inwq65qm",
+        "service/valory/mech_zkevm/0.1.0": "bafybeihfp4qv4bp74i2qb5f5wa7o5ad247hnuip62j7cmfluikqch3twtu",
+        "service/valory/mech_gnosis/0.1.0": "bafybeif2ydzmf5p3ccymh5bfvjxjqwnybuqipz5yyfbfju35p6anyz7yzi"
     },
     "third_party": {
         "protocol/valory/websocket_client/0.1.0": "bafybeifjk254sy65rna2k32kynzenutujwqndap2r222afvr3zezi27mx4",
