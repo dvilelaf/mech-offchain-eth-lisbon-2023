@@ -1,6 +1,7 @@
 {
     "dev": {
-        "custom/valory/short_maker/0.1.0": "bafybeicy3ykckj2lduwkru6efdlgswhunyue4uesjv3o4yrkisvyuszmaa",
+        "custom/valory/short_maker/0.1.0": "bafybeihlqmjngfdnchihttgyjjuxroevgm23vapxcuxs4jlzevup6odfca",
+        "agent/valory/mech/0.1.0": "bafybeiflfz2kcy2adgjtx3ad47u5axbkjjcej56xladjkoa3i4ufpqdyua",
         "service/valory/mech_neon/0.1.0": "bafybeieha3fphr7cqpah4u3dnsxvvhy5f3sbo4nbxmd5yqu2uf6izro43m",
         "service/valory/mech_zkevm/0.1.0": "bafybeihoousn2o6igr3vvvjb5m5qobw3epcwpqdrcr4knw3qflnoh2456e",
         "service/valory/mech_gnosis/0.1.0": "bafybeihrobxz5vdcwen7kxadekfpfyt3bmkfabt3mt2jlpjlept4b5rbgm"
@@ -42,7 +43,6 @@
         "skill/valory/abstract_round_abci/0.1.0": "bafybeiaqcl7h2famylusiffigwem7tevkcsyocdu5xd42jkmgq6kvowzgq",
         "skill/valory/termination_abci/0.1.0": "bafybeie4zvjfxvdu7qrulmur3chpjz3kpj5m4bjsxvpk4gvj5zbyyayfaa",
         "skill/valory/transaction_settlement_abci/0.1.0": "bafybeiaefgqbs7zsn5xe5kdwrujj7ivygkn3ujpw6crnvi3knvxw75qmja",
-        "skill/valory/abstract_abci/0.1.0": "bafybeiflcfufixmsrhobf56bn5745m2iipcfqyulwk2qegtnagb3kvaaxi",
-        "agent/valory/mech/0.1.0": "bafybeiflfz2kcy2adgjtx3ad47u5axbkjjcej56xladjkoa3i4ufpqdyua"
+        "skill/valory/abstract_abci/0.1.0": "bafybeiflcfufixmsrhobf56bn5745m2iipcfqyulwk2qegtnagb3kvaaxi"
     }
 }
