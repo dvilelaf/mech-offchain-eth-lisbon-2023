@@ -42,7 +42,6 @@ type: skill
         tendermint_p2p_url: ${TM_P2P_ENDPOINT_NODE_0:str:node0:26656}
         termination_sleep: ${TERMINATION_SLEEP:int:900}
         use_termination: ${USE_TERMINATION:bool:false}
-        agent_mech_contract_addresses: ${AGENT_MECH_CONTRACT_ADDRESSES:list:["0x1847f93501704F9AA67FE8Af5de7e999af5d0970"]}
         reset_period_count: ${RESET_PERIOD_COUNT:int:1000}
         use_slashing: ${USE_SLASHING:bool:false}
         slash_cooldown_hours: ${SLASH_COOLDOWN_HOURS:int:3}
@@ -59,7 +58,6 @@ type: skill
   models:
     params:
       args:
-        agent_mech_contract_addresses: ${AGENT_MECH_CONTRACT_ADDRESSES:list:["0x1847f93501704F9AA67FE8Af5de7e999af5d0970"]}
         task_deadline: ${TASK_DEADLINE:float:3600.0}
         file_hash_to_tools_json: ${FILE_HASH_TO_TOOLS:list:[]}
         api_keys_json: ${API_KEYS:list:[]}
