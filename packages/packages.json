@@ -1,5 +1,6 @@
 {
     "dev": {
+        "custom/valory/short_maker/0.1.0": "bafybeicy3ykckj2lduwkru6efdlgswhunyue4uesjv3o4yrkisvyuszmaa",
         "service/valory/mech_neon/0.1.0": "bafybeieha3fphr7cqpah4u3dnsxvvhy5f3sbo4nbxmd5yqu2uf6izro43m",
         "service/valory/mech_zkevm/0.1.0": "bafybeihoousn2o6igr3vvvjb5m5qobw3epcwpqdrcr4knw3qflnoh2456e",
         "service/valory/mech_gnosis/0.1.0": "bafybeihrobxz5vdcwen7kxadekfpfyt3bmkfabt3mt2jlpjlept4b5rbgm"

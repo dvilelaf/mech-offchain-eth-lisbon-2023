@@ -6,8 +6,8 @@ description: A tool to generate short videos from prompts.
 license: Apache-2.0
 aea_version: '>=1.0.0, <2.0.0'
 fingerprint:
-  __init__.py: bafybeidey4syohls5hxmso6qsp5p4uhtzle5txv2mlbym6ktjzknich6oa
-  short_maker.py: bafybeibqwl52cnz64cysjd2jnjijuakdvyrffapxq65cdzx6g65gu42deq
+  __init__.py: bafybeidfwhwsyo4ffxse2oo5vi26rcyisgdwip5id2z5qzxrmxc7arzvb4
+  short_maker.py: bafybeifbrkgy624rtplglwl4dacoivrdxhc55wa24dis2calgpz2bqdqyi
 fingerprint_ignore_patterns: []
 entry_point: short_maker.py
 callable: run
