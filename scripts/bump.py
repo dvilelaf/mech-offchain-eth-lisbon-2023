@@ -32,7 +32,7 @@ import re
 import typing as t
 from pathlib import Path
 
-import click
+import click  # type: ignore
 import requests
 from aea.cli.utils.click_utils import PackagesSource, PyPiDependency
 from aea.configurations.constants import PACKAGES, PACKAGE_TYPE_TO_CONFIG_FILE
@@ -41,7 +41,7 @@ from aea.helpers.logging import setup_logger
 from aea.helpers.yaml_utils import yaml_dump, yaml_dump_all, yaml_load, yaml_load_all
 from aea.package_manager.v1 import PackageManagerV1
 
-from autonomy.cli.helpers.ipfs_hash import load_configuration
+from autonomy.cli.helpers.ipfs_hash import load_configuration  # type: ignore
 
 
 BUMP_BRANCH = "chore/bump"
